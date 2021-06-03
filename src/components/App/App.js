@@ -4,6 +4,7 @@ import './App.css';
 
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
+import GuestList from '../GuestList/GuestList'
 
 function App() {
   let [guestList, setGuestList] = useState([]);
@@ -109,14 +110,17 @@ function App() {
             <th>Kid's Meal</th>
           </tr>
         </thead>
-        <tbody>
+
+        <GuestList list={guestList} />
+
+        {/* <tbody>
           {guestList.map(guest => (
             <tr key={guest.id}>
               <td>{guest.name}</td>
               <td>{String(guest.kidsMeal)}</td>
             </tr>
           ))}
-        </tbody>
+        </tbody> */}
       </table>
       <h2>Dinner Supplies</h2>
       <div>
@@ -130,7 +134,7 @@ function App() {
       </div>
 
       <Footer />
-      
+
     </div>
   );
 }
