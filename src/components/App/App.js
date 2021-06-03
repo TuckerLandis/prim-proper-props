@@ -11,8 +11,8 @@ import PartyLeader from '../PartyLeader/PartyLeader'
 
 function App() {
   let [guestList, setGuestList] = useState([]);
-  // let [newGuestName, setNewGuestName] = useState('');
-  // let [newGuestMeal, setNewGuestMeal] = useState('false');
+  let [newGuestName, setNewGuestName] = useState('');
+  let [newGuestMeal, setNewGuestMeal] = useState('false');
 
   //On load, get guests
   useEffect(() => {
@@ -31,11 +31,13 @@ function App() {
   }
 
 
-  const addGuest = (guestToAdd) => {
-    axios.post('/guests', guestToAdd)
+  const addGuest = () => {
+    axios.post('/guests', { name: newGuestName, kidsMeal: newGuestMeal })
       .then(response => {
-       
 
+         // clear inputs
+         setNewGuestName('');
+         setNewGuestMeal(false);
         getGuests();
       })
       .catch(err => {
@@ -45,17 +47,17 @@ function App() {
   };
 
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   if (newGuestName) {
-  //     addGuest();
-  //   }
-  //   else {
-  //     alert('The new guest needs a name!');
-  //   }
-  // }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (newGuestName) {
+      addGuest();
+    }
+    else {
+      alert('The new guest needs a name!');
+    }
+  }
 
-  // console.log(newGuestMeal)
+  console.log(newGuestMeal)
 
 
   return (
@@ -63,27 +65,17 @@ function App() {
       <Header />
 
 
-      {/* <h2>Party Leader</h2>
-      {guestList[0] && <h3>{guestList[0].name}</h3>}
-      <h2>Add a new guest</h2> */}
 
       <PartyLeader guestList={guestList}/>
 
-     <GuestForm addGuest={addGuest}/>
-      
-      <h2>Guest List</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Kid's Meal</th>
-          </tr>
-        </thead>
-
-        <GuestList list={guestList} />
-
-      </table>
-     
+      <GuestForm
+    newGuestName={newGuestName}
+    setNewGuestName={setNewGuestName}
+    newGuestMeal={newGuestMeal}
+    setNewGuestMeal={setNewGuestMeal}
+    handleSubmit={handleSubmit}
+  />
+     <GuestList list={guestList} getGuests={getGuests}/>
      <DinnerSupplies guestList={guestList} />
 
       <Footer />

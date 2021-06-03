@@ -1,42 +1,17 @@
-import { useState } from 'react';
 
-function GuestForm ({addGuest}) {
-    let [newGuestName, setNewGuestName] = useState('');
-    let [newGuestMeal, setNewGuestMeal] = useState('false');
-
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        const guestToAdd = {
-            name: newGuestName,
-            kidsMeal: newGuestMeal
-        }
-
-        if (newGuestName) {
-          addGuest(guestToAdd);
-        }
-        else {
-          alert('The new guest needs a name!');
-        }
-
-         // clear inputs
-         setNewGuestName('');
-         setNewGuestMeal(false);
-      }
-
+function GuestForm (props) {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={props.handleSubmit}>
         <label>
           Name
         </label>
         <input
           type="text"
           placeholder="Name"
-          value={newGuestName}
-          onChange={(evt) => setNewGuestName(evt.target.value)}
+          value={props.newGuestName}
+          onChange={(evt) => props.setNewGuestName(evt.target.value)}
         />
         <div>
           Would this guest like a kid's meal?
@@ -46,9 +21,9 @@ function GuestForm ({addGuest}) {
                 <input
                   type="radio"
                   value={true}
-                  checked={newGuestMeal === 'true'}
+                  checked={props.newGuestMeal === 'true'}
                   name="kidsMeal"
-                  onChange={(evt) => setNewGuestMeal(evt.target.value)}
+                  onChange={(evt) => props.setNewGuestMeal(evt.target.value)}
                 />
                 Yes, this guest would like a Kid's Meal
               </label>
@@ -58,9 +33,9 @@ function GuestForm ({addGuest}) {
                 <input
                   type="radio"
                   value={false}
-                  checked={newGuestMeal === 'false'}
+                  checked={props.newGuestMeal === 'false'}
                   name="kidsMeal"
-                  onChange={(evt) => setNewGuestMeal(evt.target.value)}
+                  onChange={(evt) => props.setNewGuestMeal(evt.target.value)}
                 />
                 No, this guest would not like a Kid's Meal
               </label>
