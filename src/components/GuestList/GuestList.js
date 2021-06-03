@@ -1,16 +1,11 @@
 import Axios from "axios";
+import GuestItem from '../GuestItem/GuestItem'
 
 
 function GuestList ({list, getGuests}) {
 
 
-  function handleDelete(){
-   console.log('clicked delet');
-   console.log(this);
-   
   
-    
-  }
 
 
     return (
@@ -27,12 +22,9 @@ function GuestList ({list, getGuests}) {
 
         <tbody>
         {list.map(guest => (
-          <tr key={guest.id}>
-            <td>{guest.name}</td>
-            <td>{String(guest.kidsMeal)}</td>
-            <td><button onClick={handleDelete = () => Axios.delete(`/guests/${guest.id}`).then(getGuests())
-            } data-id={guest.id} >Delete</button></td>
-          </tr>
+        
+          <GuestItem guest={guest} getGuests={getGuests}/>
+
         ))}
       </tbody>
           </table>
