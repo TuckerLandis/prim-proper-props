@@ -23,7 +23,7 @@ function GuestList ({list, getGuests}) {
         <tbody>
         {list.map(guest => (
         
-          <GuestItem guest={guest} getGuests={getGuests}/>
+          <GuestItem key={guest.id} guest={guest} getGuests={getGuests}/>
 
         ))}
       </tbody>
